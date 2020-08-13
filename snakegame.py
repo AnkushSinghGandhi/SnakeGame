@@ -20,7 +20,7 @@ display = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption("Legend of Snake Game")
 
 snake_block = 10
-snake_speed = 5
+snake_speed = 9
 snake_list = []
 
 # snake structure and position
@@ -49,6 +49,12 @@ def snakegame():
 
     while not game_over:
         while game_end == True:
+            
+            display.fill(blue)
+            font_style = pygame.font.SysFont("comicsansms",25)
+            msg = font_style.render("You Lost! wanna play again? Press P", True, red)
+            display.blit(msg,[(display_width / 6), (display_height / 3)])
+            
             # score board
             score = length_of_snake - 1
             score_font = pygame.font.SysFont("comicsansms",35)
@@ -56,6 +62,9 @@ def snakegame():
             display.blit(value,[round(display_width / 3), round(display_height / 5)])
             pygame.display.update()
             for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_p:
+                        snakegame()
                 if event.type == pygame.QUIT:
                     game_over = True #the window is still open
                     game_end = False #game has been ended
